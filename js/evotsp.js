@@ -97,18 +97,14 @@
     // This request will return a complete route JSON object.
     // You should display the returned information in 
     // `#route-by-id-elements` (after clearing it first).
-    function getRouteById() {
+    function getRouteById(routeId) {
         $.ajax({
             method: 'GET',
-            url: baseUrl + '/routes',
-            data: JSON.stringify({
-                runId: runId,
-                generation: generation,
-            }),
+            url: baseUrl + '/routes' + routeId,
             contentType: 'application/json',
             // When a request completes, call `showRoute()` to display the
             // route on the web page.
-            success: showRoute,
+            success: showEntireRoute,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
                 console.error(
                     'Error generating random route: ', 
