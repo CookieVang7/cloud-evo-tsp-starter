@@ -100,19 +100,20 @@
     function getRouteById(routeId) {
         $.ajax({
             method: 'GET',
-            url: baseUrl + '/routes' + routeId,
-            contentType: 'application/json',
+            url: baseUrl + '/routes/' + routeId,
+            
+            //contentType: 'application/json',
             // When a request completes, call `showRoute()` to display the
             // route on the web page.
             success: showEntireRoute,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
                 console.error(
-                    'Error generating random route: ', 
+                    'Error getting route details by Id: ', 
                     textStatus, 
                     ', Details: ', 
                     errorThrown);
                 console.error('Response: ', jqXHR.responseText);
-                alert('An error occurred when creating a random route:\n' + jqXHR.responseText);
+                alert('An error occurred when getting route details:\n' + jqXHR.responseText);
             }
         })
     }
