@@ -1,7 +1,5 @@
 (function evoTSPwrapper($) {
 
-    // You'll need to replace this with the URL you get when you
-    // deploy your API Gateway.
     const baseUrl = 'https://ddu7p05etd.execute-api.us-east-1.amazonaws.com/prod'
     console.log(`The base URL is ${baseUrl}.`);
 
@@ -28,7 +26,7 @@
                 runId: runId,
                 generation: generation
             }),
-            contentType: 'application/json',
+            contentType: 'application/json', //type of data sent to the server
             // When a request completes, call `showRoute()` to display the
             // route on the web page.
             success: showRoute,
@@ -60,7 +58,7 @@
     // We never do anything with the `event` argument because we know what
     // button was clicked and don't care about anything else.
     function randomRoutes(event) {
-        const runId = $('#runId-text-field').val();
+        const runId = $('#runId-text-field').val(); //the value entered at this id in the html file
         const generation = $('#generation-text-field').val();
         const numToGenerate =$('#num-to-generate').val();
         // Reset the contents of `#new-route-list` so that it's ready for
@@ -97,14 +95,16 @@
     // This request will return a complete route JSON object.
     // You should display the returned information in 
     // `#route-by-id-elements` (after clearing it first).
-    function getRouteById(routeId) {
+    function getRouteById(event) {
+        const routeId = $('#route-ID').val(); //the input routeId
         $.ajax({
             method: 'GET',
             url: baseUrl + '/routes/' + routeId,
-            
-            //contentType: 'application/json',
-            // When a request completes, call `showRoute()` to display the
-            // route on the web page.
+            contentType: 'application/json', //type of info sent to the database
+            data: JSON.stringify({
+                routeId: routeId,
+            }),
+
             success: showEntireRoute,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
                 console.error(
@@ -116,17 +116,18 @@
                 alert('An error occurred when getting route details:\n' + jqXHR.responseText);
             }
         })
+        $('#route-by-id-elements').text(''); //clearing info to make room for new ones
     }
 
     function showEntireRoute(result){
-        console.log('New route received from API: ', result);
+        console.log('Route details from the database: ', result);
         const routeId = result.routeId;
         const length = result.length;
         const route = result.route;
         const partitionKey = result.partitionKey;
         
         //$('#new-route-list').append(`<li>We generated route ${routeId} with length ${length}.</li>`);
-        $('#route-details').append(`<li>Route Id: ${routeId}</li>`);
+        $('#route-by-id-elements').append(`<li>Route Id: ${routeId}</li>`);
     }
 
 }(jQuery));
