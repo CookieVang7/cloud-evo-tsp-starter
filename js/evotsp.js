@@ -97,9 +97,10 @@
     // `#route-by-id-elements` (after clearing it first).
     function getRouteById(event) {
         const routeId = $('#route-ID').val(); //the input routeId
-        $.ajax({
+        const url = 'https://ddu7p05etd.execute-api.us-east-1.amazonaws.com/prod/routes/' + routeId
+        $.ajax({ 
             method: 'GET',
-            url: baseUrl + '/routes/' + routeId,
+            url: url,
             contentType: 'application/json', //type of info sent to the database
             data: JSON.stringify({
                 routeId: routeId,
@@ -126,7 +127,6 @@
         const route = result.route;
         const partitionKey = result.partitionKey;
         
-        //$('#new-route-list').append(`<li>We generated route ${routeId} with length ${length}.</li>`);
         $('#route-by-id-elements').append(`<li>Route Id: ${routeId}</li>`);
     }
 
