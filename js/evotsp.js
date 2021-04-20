@@ -85,7 +85,7 @@
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
     function getBestRoutes(event) {
-        //
+        alert(":)");
     }
 
     // Make a `GET` request that gets all the route information
@@ -97,7 +97,7 @@
     // `#route-by-id-elements` (after clearing it first).
     function getRouteById(event) {
         const routeId = $('#route-ID').val(); //the input routeId
-        const url = baseUrl + '/routes/' + routeId;
+        const url = baseUrl + '/routes/{' + routeId + "}";
         $('#route-by-id-elements').text(''); //clearing info to make room for the returning info
         $.ajax({ 
             method: 'GET',
