@@ -97,7 +97,8 @@
     // `#route-by-id-elements` (after clearing it first).
     function getRouteById(event) {
         const routeId = $('#route-ID').val(); //the input routeId
-        const url = 'https://ddu7p05etd.execute-api.us-east-1.amazonaws.com/prod/routes/' + routeId
+        const url = baseUrl + '/routes/' + routeId;
+        $('#route-by-id-elements').text(''); //clearing info to make room for the returning info
         $.ajax({ 
             method: 'GET',
             url: url,
@@ -117,7 +118,6 @@
                 alert('An error occurred when getting route details:\n' + jqXHR.responseText);
             }
         })
-        $('#route-by-id-elements').text(''); //clearing info to make room for new ones
     }
 
     function showEntireRoute(result){
@@ -131,3 +131,5 @@
     }
 
 }(jQuery));
+
+//BUl1Ijz2KDrHVn6Y3uUjqg
