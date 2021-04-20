@@ -96,16 +96,14 @@
     // You should display the returned information in 
     // `#route-by-id-elements` (after clearing it first).
     function getRouteById(event) {
-        const routeId = $('#route-ID').val(); //the input routeId
-        const url = baseUrl + '/routes/{' + routeId + "}";
+        const routeId = $('#route-ID').val(); //the input routeId. The .val() makes routeId a string
+        const url = baseUrl + '/routes/'+ routeId;
+        console.log("Here is the url: " + url);
         $('#route-by-id-elements').text(''); //clearing info to make room for the returning info
         $.ajax({ 
             method: 'GET',
             url: url,
-            contentType: 'application/json', //type of info sent to the database
-            data: JSON.stringify({
-                routeId: routeId,
-            }),
+            //contentType: 'application/json', //type of info sent to the database
 
             success: showEntireRoute,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
