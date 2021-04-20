@@ -87,7 +87,7 @@
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
     function getBestRoutes(event) {
-        alert('You need to implement getBestRoutes()');
+        //
     }
 
     // Make a `GET` request that gets all the route information
@@ -98,7 +98,38 @@
     // You should display the returned information in 
     // `#route-by-id-elements` (after clearing it first).
     function getRouteById() {
-        alert('You need to implement getRouteById()');
+        $.ajax({
+            method: 'GET',
+            url: baseUrl + '/routes',
+            data: JSON.stringify({
+                runId: runId,
+                generation: generation,
+            }),
+            contentType: 'application/json',
+            // When a request completes, call `showRoute()` to display the
+            // route on the web page.
+            success: showRoute,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error(
+                    'Error generating random route: ', 
+                    textStatus, 
+                    ', Details: ', 
+                    errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occurred when creating a random route:\n' + jqXHR.responseText);
+            }
+        })
+    }
+
+    function showEntireRoute(result){
+        console.log('New route received from API: ', result);
+        const routeId = result.routeId;
+        const length = result.length;
+        const route = result.route;
+        const partitionKey = result.partitionKey;
+        
+        //$('#new-route-list').append(`<li>We generated route ${routeId} with length ${length}.</li>`);
+        $('#route-details').append(`<li>Route Id: ${routeId}</li>`);
     }
 
 }(jQuery));
