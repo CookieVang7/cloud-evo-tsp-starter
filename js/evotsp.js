@@ -88,9 +88,8 @@
     function getBestRoute() {
         const runId = $('#runId-text-field').val(); 
         const generation = $('#generation-text-field').val();
-        //const numToGet = $('#num-best-to-get').val();
-        const partitionKey = runId + '#' + generation;
-        const url = baseUrl + '/routes/' + partitionKey; 
+        const numToGet = $('#num-best-to-get').val();
+        const url = baseUrl+`/best?runId=${runId}&generation=${generation}&numToReturn=${numToGet}`;
         console.log("Here is the url: " + url); //clearing best-route-list id
         $('#best-route-list').text(''); //clearing info to make room for the returning info
         $.ajax({ 
@@ -122,10 +121,6 @@
 
     function bestRoutes(event){
         const numToGet = $('#num-best-to-get').val(); //the value entered at this id in the html file
-        // Reset the contents of `#new-route-list` so that it's ready for
-        // `showRoute()` to "fill" it with the incoming new routes. 
-        $('#new-route-list').text('');
-        // 
         async.times(numToGet, () => getBestRoute());
     }
 
@@ -167,7 +162,6 @@
         const partitionKey = result.partitionKey;
         
         $('#route-by-id-elements').append(`<br><li>Route: ${route} </li><br><li>Route Distance: ${length}</li><br><li>Partition Key: ${partitionKey}</li><br><li>Route ID: ${routeId}</li>`);
-        //<br> is a break so it will start a new line. `stuff ${variable} ` is a way to grab variables and append their values 
     }
 
 }(jQuery));
