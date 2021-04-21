@@ -114,9 +114,9 @@
         console.log('The best routes from the given runId and generation: ', result);
         for (let i = 0; i < result.length; i++){
             const routeId = result[i].routeId;
-            const len = result[i].length;
+            const len = result[i]['len'];
 
-            console.log(length);
+            console.log(len);
         
             $('#best-route-list').append(`<br><li>${len}, (${routeId})</li>`);
         }
