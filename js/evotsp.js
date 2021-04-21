@@ -114,11 +114,11 @@
         console.log('The best routes from the given runId and generation: ', result);
         for (let i = 0; i < result.length; i++){
             const routeId = result[i].routeId;
-            const length = result[i].length;
+            const len = result[i].length;
 
             console.log(length);
         
-            $('#best-route-list').append(`<br><li>${length}, (${routeId})</li>`);
+            $('#best-route-list').append(`<br><li>${len}, (${routeId})</li>`);
         }
         //<br> is a break so it will start a new line. `stuff ${variable} ` is a way to grab variables and append their values 
     }
