@@ -116,7 +116,7 @@
             //const routeId = result[i].routeId;
             //const length = result[i].length;
         
-            $('#best-route-list').append(`<br><li>${result[i].length} ,(${result[i].routeId})</li>`);
+            $('#best-route-list').append(`<br><li>${result[i]['len']} ,(${result[i]['routeId']})</li>`);
         }
         //<br> is a break so it will start a new line. `stuff ${variable} ` is a way to grab variables and append their values 
     }
