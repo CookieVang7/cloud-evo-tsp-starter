@@ -86,7 +86,11 @@
     // (after clearing it first).
     //This method returns the best/shortest route in the database
     function getBestRoute() {
-        const url = baseUrl + '/routes'; 
+        const runId = $('#runId-text-field').val(); 
+        const generation = $('#generation-text-field').val();
+        //const numToGet = $('#num-best-to-get').val();
+        const partitionKey = runId + '#' + generation;
+        const url = baseUrl + '/routes/' + partitionKey; 
         console.log("Here is the url: " + url); //clearing best-route-list id
         $('#best-route-list').text(''); //clearing info to make room for the returning info
         $.ajax({ 
@@ -110,11 +114,9 @@
     function showBestRoute(result){
         console.log('Route details from the database: ', result);
         const routeId = result.routeId;
-        const routeIdAndParenthesis = ' (' + routeId + ')';
         const length = result.length;
-        const lengthAndSpace = length + ' ,'; //adds a space between the length of the route and the route id
         
-        $('#best-route-list').append(`<br><li>${lengthAndSpace} ${routeIdAndParenthesis}</li>`);
+        $('#best-route-list').append(`<br><li>${length} ,(${routeId})</li>`);
         //<br> is a break so it will start a new line. `stuff ${variable} ` is a way to grab variables and append their values 
     }
 
