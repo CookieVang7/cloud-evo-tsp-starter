@@ -9,7 +9,7 @@
     // `getBestRoutes()` and `getRouteById()`.
     $(function onDocReady() {
         $('#generate-random-routes').click(randomRoutes);
-        $('#get-best-routes').click(getBestRoutes);
+        $('#get-best-routes').click(bestRoutes);
         $('#get-route-by-id').click(getRouteById);
     });
 
@@ -84,8 +84,47 @@
     //    { length: …, routeId: …}
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
-    function getBestRoutes(event) {
-        alert(":)");
+    //This method returns the best/shortest route in the database
+    function getBestRoute() {
+        const url = baseUrl + '/routes'; 
+        console.log("Here is the url: " + url); //clearing best-route-list id
+        $('#best-route-list').text(''); //clearing info to make room for the returning info
+        $.ajax({ 
+            method: 'GET',
+            url: url,
+            contentType: 'application/json', //type of info sent to the database
+
+            success: showBestRoute,
+            error: function ajaxError(jqXHR, textStatus, errorThrown) {
+                console.error(
+                    'Error getting route details by Id: ', 
+                    textStatus, 
+                    ', Details: ', 
+                    errorThrown);
+                console.error('Response: ', jqXHR.responseText);
+                alert('An error occurred when getting route details:\n' + jqXHR.responseText);
+            }
+        })
+    }
+
+    function showBestRoute(result){
+        console.log('Route details from the database: ', result);
+        const routeId = result.routeId;
+        const routeIdAndParenthesis = ' (' + routeId + ')';
+        const length = result.length;
+        const lengthAndSpace = length + ' ,'; //adds a space between the length of the route and the route id
+        
+        $('#best-route-list').append(`<br><li>${lengthAndSpace} ${routeIdAndParenthesis}</li>`);
+        //<br> is a break so it will start a new line. `stuff ${variable} ` is a way to grab variables and append their values 
+    }
+
+    function bestRoutes(event){
+        const numToGet = $('#num-best-to-get').val(); //the value entered at this id in the html file
+        // Reset the contents of `#new-route-list` so that it's ready for
+        // `showRoute()` to "fill" it with the incoming new routes. 
+        $('#new-route-list').text('');
+        // 
+        async.times(numToGet, () => getBestRoute());
     }
 
     // Make a `GET` request that gets all the route information
@@ -96,8 +135,8 @@
     // You should display the returned information in 
     // `#route-by-id-elements` (after clearing it first).
     function getRouteById(event) {
-        const routeId = $('#route-ID').val(); //the input routeId. The .val() makes routeId a string
-        const url = baseUrl + '/routes/'+ routeId;
+        const routeId = $('#route-ID').val(); //the input routeId. The .val() makes routeId a string which is used in the next line
+        const url = baseUrl + '/routes/'+ routeId; 
         console.log("Here is the url: " + url);
         $('#route-by-id-elements').text(''); //clearing info to make room for the returning info
         $.ajax({ 
@@ -125,7 +164,8 @@
         const route = result.route;
         const partitionKey = result.partitionKey;
         
-        $('#route-by-id-elements').append(`<li>Route ID: ${routeId} </li><br><li>Route: ${route}</li><br><li>Route Distance: ${length}</li><br><li>Partition Key: ${partitionKey}</li>`);
+        $('#route-by-id-elements').append(`<br><li>Route: ${route} </li><br><li>Route Distance: ${length}</li><br><li>Partition Key: ${partitionKey}</li><br><li>Route ID: ${routeId}</li>`);
+        //<br> is a break so it will start a new line. `stuff ${variable} ` is a way to grab variables and append their values 
     }
 
 }(jQuery));
