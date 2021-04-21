@@ -113,8 +113,8 @@
     function showBestRoute(result){
         console.log('The best routes from the given runId and generation: ', result);
         for (let i = 0; i < result.length; i++){
-            const routeId = result[i].routeId;
-            const len = result[i]['len'];
+            const routeId = result[i][routeId];
+            const len = result[i][length];
 
             console.log(len);
         
