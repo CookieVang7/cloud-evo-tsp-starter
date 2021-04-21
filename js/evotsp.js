@@ -9,7 +9,7 @@
     // `getBestRoutes()` and `getRouteById()`.
     $(function onDocReady() {
         $('#generate-random-routes').click(randomRoutes);
-        $('#get-best-routes').click(getBestRoute);
+        $('#get-best-routes').click(getBestRoutes);
         $('#get-route-by-id').click(getRouteById);
     });
 
@@ -85,7 +85,7 @@
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
     //This method returns the best/shortest route in the database
-    function getBestRoute(event) {
+    function getBestRoutes(event) {
         const runId = $('#runId-text-field').val(); 
         const generation = $('#generation-text-field').val();
         const numToGet = $('#num-best-to-get').val();
