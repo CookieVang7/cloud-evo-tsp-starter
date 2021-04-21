@@ -95,7 +95,7 @@
         $.ajax({ 
             method: 'GET',
             url: url,
-            //contentType: 'application/json', //type of info sent to the database
+            contentType: 'application/json', //type of info sent to the database
 
             success: showBestRoute,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
@@ -113,10 +113,10 @@
     function showBestRoute(result){
         console.log('The best routes from the given runId and generation: ', result);
         for (let i = 0; i < result.length; i++){
-            //const routeId = result[i].routeId;
-            //const length = result[i].length;
+            const routeId = result[i].routeId;
+            const length = result[i].length;
         
-            $('#best-route-list').append(`<br><li>${result[i].length} ,(${result[i].routeId})</li>`);
+            $('#best-route-list').append(`<br><li>${length}, (${routeId})</li>`);
         }
         //<br> is a break so it will start a new line. `stuff ${variable} ` is a way to grab variables and append their values 
     }
