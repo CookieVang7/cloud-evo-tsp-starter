@@ -9,7 +9,7 @@
     // `getBestRoutes()` and `getRouteById()`.
     $(function onDocReady() {
         $('#generate-random-routes').click(randomRoutes);
-        $('#get-best-routes').click(bestRoutes);
+        $('#get-best-routes').click(getBestRoute);
         $('#get-route-by-id').click(getRouteById);
     });
 
