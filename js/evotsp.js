@@ -103,7 +103,7 @@
         $.ajax({ 
             method: 'GET',
             url: url,
-            //contentType: 'application/json', //type of info sent to the database
+            contentType: 'application/json', //type of info sent to the database
 
             success: showEntireRoute,
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
@@ -125,7 +125,7 @@
         const route = result.route;
         const partitionKey = result.partitionKey;
         
-        $('#route-by-id-elements').append(`<li>Route Id: ${routeId}</li>`);
+        $('#route-by-id-elements').append(`<li>Route ID: ${routeId} </li><br><li>Route: ${route}</li><br><li>Route Distance: ${length}</li><br><li>Partition Key: ${partitionKey}</li>`);
     }
 
 }(jQuery));
