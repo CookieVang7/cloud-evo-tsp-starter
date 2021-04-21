@@ -85,7 +85,7 @@
     // You should add each of these to `#best-route-list`
     // (after clearing it first).
     //This method returns the best/shortest route in the database
-    function getBestRoute() {
+    function getBestRoute(event) {
         const runId = $('#runId-text-field').val(); 
         const generation = $('#generation-text-field').val();
         const numToGet = $('#num-best-to-get').val();
@@ -111,18 +111,20 @@
     }
 
     function showBestRoute(result){
-        console.log('Route details from the database: ', result);
-        const routeId = result.routeId;
-        const length = result.length;
+        console.log('The best number of routes from the given runId and generation: ', result);
+        for (let i = 0; i < result.length; i++){
+            const routeId = result.routeId;
+            const length = result.length;
         
-        $('#best-route-list').append(`<br><li>${length} ,(${routeId})</li>`);
+            $('#best-route-list').append(`<br><li>${length} ,(${routeId})</li>`);
+        }
         //<br> is a break so it will start a new line. `stuff ${variable} ` is a way to grab variables and append their values 
     }
 
-    function bestRoutes(event){
-        const numToGet = $('#num-best-to-get').val(); //the value entered at this id in the html file
-        async.times(numToGet, () => getBestRoute());
-    }
+    // function bestRoutes(event){
+    //     const numToGet = $('#num-best-to-get').val(); //the value entered at this id in the html file
+    //     async.times(numToGet, () => getBestRoute());
+    // }
 
     // Make a `GET` request that gets all the route information
     // for the given `routeId`.
